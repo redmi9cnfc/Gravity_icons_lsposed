@@ -1,0 +1,32 @@
+#!/sbin/sh
+# Gravity Icons — минимальный установщик Magisk-модуля
+
+OUTFD=$2
+ZIPFILE=$3
+MODPATH=${0%/*}
+
+ui_print() {
+  echo "ui_print $1" > "/proc/self/fd/$OUTFD"
+  echo "ui_print" > "/proc/self/fd/$OUTFD"
+}
+
+set_perm_recursive() {
+  chown -R "$2:$3" "$1"
+  find "$1" -type d -exec chmod "$4" {} +
+  find "$1" -type f -exec chmod "$5" {} +
+}
+
+ui_print "*******************************"
+ui_print "  Gravity Icons for LSPosed    "
+ui_print "*******************************"
+
+unzip -o "$ZIPFILE" -d "$MODPATH" >&2
+
+set_perm_recursive "$MODPATH" 0 0 0755 0644
+
+ui_print "- Done."
+ui_print "- Теперь: LSPosed -> Модули -> Gravity Icons ->"
+ui_print "  включить, в scope выбрать лаунчер, перезагрузка."
+ui_print "*******************************"
+
+exit 0

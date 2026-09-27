@@ -1,0 +1,6 @@
+id=gravityicons
+name=Gravity Icons (LSPosed)
+version=v1.0
+versionCode=1
+author=GravityIcons port
+description=Systemless-install of Gravity Icons LSPosed module. After flashing: enable module + scope (launcher) in LSPosed manager and reboot.

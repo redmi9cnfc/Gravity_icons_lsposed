@@ -1,0 +1,15 @@
+1. Собери APK: открой корневую папку проекта в Android Studio
+   и выполни Build > Build App Bundle(s)/APK(s) > Build APK(s).
+   APK будет лежать в app/build/outputs/apk/debug/app-debug.apk
+   (либо app-release.apk для релизной сборки).
+
+2. Переименуй его в GravityIcons.apk и положи в эту папку
+   (рядом с этим файлом). Файл .txt можно удалить.
+
+3. Заархивируй ВСЁ содержимое папки magisk-module-template
+   (module.prop, META-INF, system) в zip и прошей в Magisk.
+
+Внимание: модуль активируется не магией Magisk, а через LSPosed —
+после перезагрузки открой LSPosed, включи Gravity Icons и укажи scope
+(лаунчер). APK из /system/app будет виден пакетному менеджеру,
+LSPosed его подхватит.
