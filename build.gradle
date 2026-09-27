@@ -1,3 +1,32 @@
 plugins {
-    id 'com.android.application' version '8.5.2' apply false
+    id 'com.android.application'
+}
+
+android {
+    namespace 'ru.gravityicons.hook'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "ru.gravityicons.hook"
+        minSdk 26
+        targetSdk 35
+        versionCode 2
+        versionName "1.1"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+}
+
+dependencies {
+    // классический Xposed API, достаточно compileOnly
+    compileOnly 'de.robv.android.xposed:api:82'
 }

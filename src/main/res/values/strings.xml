@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gravity Icons</string>
+    <string name="xposed_desc">Гравитация для иконок рабочего стола: иконки падают, складываются в кучу и прыгают при тряске телефона (порт идеи iOS-твика Gravitational).</string>
+</resources>

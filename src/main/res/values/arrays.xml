@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Универсальный список лаунчеров для LSPosed Scope.
+         Поддержка Tecno, Infinix, Xiaomi/Redmi/POCO, Samsung, Realme/Oppo/OnePlus,
+         Vivo, Huawei/Honor, Motorola, Nothing, Lawnchair, Nova и др. -->
+    <string-array name="xposed_scope">
+        <item>com.android.launcher3</item>
+        <item>com.google.android.apps.nexuslauncher</item>
+        <item>org.lineageos.trebuchet</item>
+        <item>com.evolution.launcher</item>
+        <item>com.evolution.launcher3</item>
+        <item>com.miui.home</item>
+        <item>com.mi.android.globallauncher</item>
+        <item>com.sec.android.app.launcher</item>
+        <item>com.oppo.launcher</item>
+        <item>com.oneplus.launcher</item>
+        <item>com.transsion.hilauncher</item>
+        <item>com.transsion.XOSLauncher</item>
+        <item>com.transsion.launcher</item>
+        <item>com.huawei.android.launcher</item>
+        <item>com.hihonor.launcher</item>
+        <item>com.bbk.launcher2</item>
+        <item>com.vivo.launcher</item>
+        <item>com.motorola.launcher3</item>
+        <item>com.nothing.launcher</item>
+        <item>lawnchair.app</item>
+        <item>ch.deletescape.lawnchair.ci</item>
+        <item>com.teslacoilsw.launcher</item>
+        <item>ginlemon.flowerfree</item>
+        <item>bitpit.launcher</item>
+    </string-array>
+</resources>
