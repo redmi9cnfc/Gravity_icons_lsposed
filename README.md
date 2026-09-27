@@ -1,120 +1,251 @@
-# GravityIcons (LSPosed Module)
+# 🌌 GravityIcons
 
-**GravityIcons** is a high-performance, realistic 2D gravity physics module for Android launchers built for LSPosed (Zygisk). It turns your static home screen into an interactive physical sandbox where app icons, folders, and desktop widgets fall, collide, bounce, and tilt according to real-world physics!
-An LSPosed module that recreates the concept of the Gravitational (Havoc) tweak: home screen icons obey gravity—falling to the bottom edge, piling up, bouncing off one another, and jumping around when the phone is shaken.
+**GravityIcons** is a high-performance, realistic 2D gravity physics module for Android launchers built for **LSPosed (Zygisk)**.
 
-Built from scratch without using any of the original tweak's code: features a physics engine (VSync-based frame integration, circle collisions, damping, sleep/wake states) and hooks for icon rendering in Launcher3 forks.
-![Android 8-16](https://img.shields.io/badge/Android-8.0_--_16-brightgreen.svg)
-![LSPosed Module](https://img.shields.io/badge/LSPosed-Zygisk_Module-blue.svg)
-![License](https://img.shields.io/badge/License-MIT-orange.svg)
+Turn your static home screen into a physical playground where app icons, folders, and widgets **fall, collide, bounce, stack, and tilt** according to realistic physics.
 
----
+Built from scratch without using any code from the original Gravitational/Havoc tweak.
 
-## ? Features
-
-- **Realistic 2D Physics Engine**:
-  - **Gravity & Inertia**: Icons, folders, and widgets fall dynamically based on device orientation (using gravity & accelerometer sensors).
-  - **Mass Distribution**: Larger widgets and folders have higher mass and momentum, pushing smaller app icons out of the way naturally.
-  - **Dynamic Visual Tilt**: Objects tilt smoothly into their direction of movement (up to �14�) as they slide, roll, and bounce.
-  - **Elastic Collisions**: Accurate circle & rigid-body radial collision resolution with realistic bounce restitution and wall friction.
-
-- **Fully Interactive Touch Targets**:
-  - Tapping on moving or fallen icons directly opens the app at its new physical location on the screen!
-  - Works natively with Android's `View` transformation matrices.
-
-- **Smart Wrist Shake Toggle**:
-  - **Initially Fixed**: Your home screen starts in its clean, default grid layout.
-  - **Toggle On/Off**: Perform a strong intentional shake of your phone (32 m/s� threshold) to trigger gravity physics.
-  - **Smooth Home Return**: Shake your phone again, and all icons smoothly slide back to their exact original grid spots.
-
-- **Universal Launcher & Custom ROM Support**:
-  - Compatible with **Launcher3**, **Pixel Launcher**, **Evolution X**, **Trebuchet** (LineageOS), **Lawnchair**, **Nova Launcher**, **Nothing OS**, **Motorola**, **Samsung One UI**, **Xiaomi / Redmi / POCO (MIUI / HyperOS)**, **Tecno (HiOS)**, **Infinix (XOS)**, **Realme / OPPO / OnePlus (ColorOS)**, **Vivo / iQOO**, **Huawei / Honor**, and more!
-
-- **Android 16 & Modern ART Optimization**:
-  - Built with modern Android 14?16 hardware acceleration (`RecordingCanvas` & `RenderNode`) and lifecycle awareness.
-
-- **Zero Background Battery & CPU Overhead**:
-  - Sensor listeners and vsync frame loops automatically **freeze** when you exit the Home Screen (e.g. playing games, browsing in Chrome, or using Telegram). Gravity physics only runs when you are actively on the Home Screen.
+![Android 8-16](https://img.shields.io/badge/Android-8.0--16-brightgreen.svg)
+![LSPosed Module](https://img.shields.io/badge/LSPosed-Zygisk-blue.svg)
+![License](https://img.shields.io/badge/License-GPL--3.0-orange.svg)
 
 ---
 
-## ? Requirements
+## ✨ Features
 
-- **Android Version**: Android 8.0 (API 26) up to **Android 16 (API 36)**
-- **Root**: Magisk / KernelSU / APatch with Zygisk enabled
-- **Xposed Framework**: **LSPosed** (or LSPosed-JingMatrix / Zygisk Next)
+### ⚙️ Realistic 2D Physics
+
+* **Gravity & Inertia** — Icons, folders, and widgets react to device orientation using gravity and accelerometer sensors.
+* **Mass Distribution** — Larger widgets and folders have greater mass and momentum, naturally pushing smaller icons.
+* **Dynamic Tilt** — Objects smoothly tilt in the direction of movement.
+* **Elastic Collisions** — Icons collide with each other and the screen edges with realistic bounce and friction.
+* **Sleep / Wake States** — Objects that stop moving automatically sleep to reduce processing overhead.
+
+### 👆 Fully Interactive Touch
+
+* Tap moving or fallen icons to open their apps.
+* Folders and widgets remain interactive.
+* Uses Android's native `View` transformation system.
+
+### 🫨 Shake to Toggle
+
+The home screen initially stays in its normal grid layout.
+
+Shake your phone to activate gravity:
+
+**Icons fall, collide, bounce, and pile up.**
+
+Shake again and the icons smoothly return to their original grid positions.
+
+### 📱 Launcher Support
+
+Designed for:
+
+* Launcher3
+* Pixel Launcher
+* Evolution X
+* Trebuchet
+* Lawnchair
+* Nova Launcher
+* Nothing OS
+* Samsung One UI
+* Xiaomi / Redmi / POCO
+* Motorola
+* Tecno HiOS
+* Infinix XOS
+* Realme / OPPO / OnePlus
+* Vivo / iQOO
+* Huawei / Honor
+* Other Launcher3-based launchers
+
+> Compatibility depends on the launcher implementation and its internal view classes.
+
+### ⚡ Performance
+
+GravityIcons automatically pauses its physics engine when the launcher is not visible.
+
+Sensor listeners and VSync updates stop when you leave the home screen, so the module does not continuously consume CPU or battery while using other apps.
 
 ---
 
-## ? Installation & Setup
+## 🛠️ Requirements
 
-1. **Download APK**: Download `app-release-unsigned.apk` (or build the project in Android Studio).
-2. **Install**: Install the APK on your Android device.
-3. **Enable in LSPosed**:
-   - Open **LSPosed Manager**.
-   - Navigate to the **Modules** tab and enable **GravityIcons**.
-   - Make sure your system Launcher (e.g., *Launcher3*, *Evolution Launcher*, *MIUI Home*, *One UI Home*, *HiOS*, *XOS*, etc.) is checked in the module **Scope** list.
-4. **Reboot / Restart Launcher**:
-   - Force close your Launcher app or reboot your device.
-5. **Enjoy**:
-   - Go to your Home Screen and perform a strong wrist shake to activate gravity!
+* **Android:** 8.0 (API 26) → Android 16 (API 36)
+* **Root:** Magisk / KernelSU / APatch with Zygisk
+* **Xposed:** LSPosed, LSPosed-JingMatrix, or Zygisk Next
 
 ---
 
-## ?? How It Works
+## 📦 Installation
 
-1. **LSPosed Hooks**:
-   - Hooks Activity lifecycle methods (`onCreate`, `onResume`, `onPause`, `onStop`) in the target launcher process to manage foreground state and sensor callbacks.
-   - Hooks `android.view.View.draw` to discover and register workspace elements (`BubbleTextView`, `FolderIcon`, `AppWidgetHostView`, `QsbContainer`) into the physics simulation map.
+### 1. Install the APK
 
-2. **Native View Matrix Translation**:
-   - Updates `setTranslationX`, `setTranslationY`, and `setRotation` directly on `View` objects on vsync frame callbacks (`Choreographer`).
-   - Android's framework automatically handles both rendering translation and touch input hit-testing dispatch.
+Install:
 
----
-
-## ⚠️ Doesn’t work? (diagnostics)
-
-**Main test:** after enabling the module and restarting the launcher, the icons should
-**immediately fall down** — even before any shaking occurs. Let’s break it down by situation:
-
-**A. The icons don’t even fall** — the hooks aren’t working. Check the logs:
+```text
+app-release-unsigned.apk
 ```
+
+or build the project yourself.
+
+### 2. Enable GravityIcons
+
+Open:
+
+```text
+LSPosed Manager → Modules → GravityIcons
+```
+
+Enable the module.
+
+### 3. Select your Launcher
+
+Enable your system launcher in the module's **Scope**.
+
+### 4. Restart the Launcher
+
+Force stop the launcher or reboot your device.
+
+### 5. Enjoy
+
+Return to the home screen and shake your phone to activate gravity.
+
+---
+
+## 🔬 How It Works
+
+### LSPosed Hooks
+
+GravityIcons hooks launcher lifecycle methods:
+
+```text
+onCreate
+onResume
+onPause
+onStop
+```
+
+It also hooks:
+
+```text
+android.view.View.draw
+```
+
+to detect launcher objects such as:
+
+```text
+BubbleTextView
+FolderIcon
+AppWidgetHostView
+QsbContainer
+```
+
+### Native View Transformations
+
+Physics is updated on the display's VSync using `Choreographer`.
+
+The module applies:
+
+```java
+setTranslationX()
+setTranslationY()
+setRotation()
+```
+
+directly to the original Android `View` objects.
+
+---
+
+## ⚠️ Troubleshooting
+
+### A. Icons don't move
+
+Check the logs:
+
+```bash
 adb logcat -s GravityIcons XposedBridge
 ```
-(or LSPosed Manager → Logs, search for “GravityIcons”)
 
-What should be in the logs when loading the launcher:
-- `hooked android.view.View.draw`
-- `engine attached for <launcher package>`
-- `icon registered: com.android.launcher3.BubbleTextView`
+You should see messages such as:
 
+```text
+hooked android.view.View.draw
+engine attached for <launcher package>
+icon registered: com.android.launcher3.BubbleTextView
+```
 
-What to check if there are no lines or they are missing:
-1. Is the module included in LSPosed and marked as scope? Reboot after enabling.
-2. Does scope point to **your** launcher? Find out the package:
-   `adb shell cmd shortcut get-default-launcher`
- If it’s not on the list (Lawnchair, Nova, etc.), the module doesn’t touch it:
-   add the package to `LAUNCHER_PACKAGES` (GravityHook.java) and to
-   `xposed_scope` (arrays.xml), rebuild.
-3. Are the icons not from the Launcher3 world? Nova/Lawnchair have their own classes — hook.
-   `View.draw` will work, but `isIconClass()` won’t recognize them. Add the names
- of their view classes to `isIconClass()`.
-4. There was a bug in v1.0: icon hooks weren’t found silently (findAndHookMethod searches
- for the method only in the class itself). If you have v1.0, update to v1.1.
+Check that:
 
-**B. Icons fall, but shaking doesn’t wake them up** — this is a sensor/threshold issue:
-- Shake **sharper** or reduce the `SHAKE_THRESHOLD` (default is 1.8 m/s2).
-- The linear acceleration sensor may be missing — then it is used
-  the high-frequency part of the accelerometer, it is less sensitive; reduce
-  the threshold is up to ~1.2.
-- Increase the `IMPULSE_GAIN_PX` if the icons are awake but barely twitching.
+1. GravityIcons is enabled in LSPosed.
+2. Your launcher is selected in the module Scope.
+3. Your launcher package is supported.
+4. The launcher uses recognized icon view classes.
 
-**C. Everything is included, but the launcher crashes/is glitchy** — check the log for crashes
-(`adb logcat -b crash`), disable the module, and write down which line it crashed on.
+You can check the default launcher with:
+
+```bash
+adb shell cmd shortcut get-default-launcher
+```
 
 ---
 
-## ? License
+### B. Icons move, but shaking doesn't work
 
-Distributed under the **GPL-3.0 License**.
+Try shaking the phone more sharply.
+
+If necessary, reduce:
+
+```text
+SHAKE_THRESHOLD
+```
+
+If the device doesn't provide a suitable linear acceleration sensor, GravityIcons can fall back to accelerometer data.
+
+---
+
+### C. Icons barely react
+
+Increase:
+
+```text
+IMPULSE_GAIN_PX
+```
+
+This controls how much movement is transferred to the physics engine after a shake.
+
+---
+
+### D. Launcher crashes
+
+Disable the module and check:
+
+```bash
+adb logcat -b crash
+```
+
+Then check:
+
+```bash
+adb logcat -s GravityIcons XposedBridge
+```
+
+Launcher internals can differ between Android versions and manufacturers, so some launchers may require additional hooks.
+
+---
+
+## 📜 License
+
+**GPL-3.0 License**
+
+See [`LICENSE`](LICENSE) for details.
+
+---
+
+<div align="center">
+
+### 🌌 GravityIcons
+
+**Your icons. Your launcher. Gravity.**
+
+</div>
