@@ -73,6 +73,48 @@ Built from scratch without using any of the original tweak's code: features a ph
 
 ---
 
+## ⚠️ Doesn’t work? (diagnostics)
+
+**Main test:** after enabling the module and restarting the launcher, the icons should
+**immediately fall down** — even before any shaking occurs. Let’s break it down by situation:
+
+**A. The icons don’t even fall** — the hooks aren’t working. Check the logs:
+```
+adb logcat -s GravityIcons XposedBridge
+```
+(or LSPosed Manager → Logs, search for “GravityIcons”)
+
+What should be in the logs when loading the launcher:
+- `hooked android.view.View.draw`
+- `engine attached for <launcher package>`
+- `icon registered: com.android.launcher3.BubbleTextView`
+
+
+What to check if there are no lines or they are missing:
+1. Is the module included in LSPosed and marked as scope? Reboot after enabling.
+2. Does scope point to **your** launcher? Find out the package:
+   `adb shell cmd shortcut get-default-launcher`
+ If it’s not on the list (Lawnchair, Nova, etc.), the module doesn’t touch it:
+   add the package to `LAUNCHER_PACKAGES` (GravityHook.java) and to
+   `xposed_scope` (arrays.xml), rebuild.
+3. Are the icons not from the Launcher3 world? Nova/Lawnchair have their own classes — hook.
+   `View.draw` will work, but `isIconClass()` won’t recognize them. Add the names
+ of their view classes to `isIconClass()`.
+4. There was a bug in v1.0: icon hooks weren’t found silently (findAndHookMethod searches
+ for the method only in the class itself). If you have v1.0, update to v1.1.
+
+**B. Icons fall, but shaking doesn’t wake them up** — this is a sensor/threshold issue:
+- Shake **sharper** or reduce the `SHAKE_THRESHOLD` (default is 1.8 m/s2).
+- The linear acceleration sensor may be missing — then it is used
+  the high-frequency part of the accelerometer, it is less sensitive; reduce
+  the threshold is up to ~1.2.
+- Increase the `IMPULSE_GAIN_PX` if the icons are awake but barely twitching.
+
+**C. Everything is included, but the launcher crashes/is glitchy** — check the log for crashes
+(`adb logcat -b crash`), disable the module, and write down which line it crashed on.
+
+---
+
 ## ? License
 
 Distributed under the **GPL-3.0 License**.
