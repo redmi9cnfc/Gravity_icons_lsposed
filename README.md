@@ -1,7 +1,9 @@
 # GravityIcons (LSPosed Module)
 
 **GravityIcons** is a high-performance, realistic 2D gravity physics module for Android launchers built for LSPosed (Zygisk). It turns your static home screen into an interactive physical sandbox where app icons, folders, and desktop widgets fall, collide, bounce, and tilt according to real-world physics!
+An LSPosed module that recreates the concept of the Gravitational (Havoc) tweak: home screen icons obey gravity—falling to the bottom edge, piling up, bouncing off one another, and jumping around when the phone is shaken.
 
+Built from scratch without using any of the original tweak's code: features a physics engine (VSync-based frame integration, circle collisions, damping, sleep/wake states) and hooks for icon rendering in Launcher3 forks.
 ![Android 8-16](https://img.shields.io/badge/Android-8.0_--_16-brightgreen.svg)
 ![LSPosed Module](https://img.shields.io/badge/LSPosed-Zygisk_Module-blue.svg)
 ![License](https://img.shields.io/badge/License-MIT-orange.svg)
